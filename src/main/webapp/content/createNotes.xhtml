@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="layouts/layout.xhtml">
+
+
+	<ui:define name="main">
+		<h:form id="form">
+			<p:panel header="Create release notes">
+
+				<p:messages id="msgs" />
+				<p:message for="releaseName" display="icon" />
+				<p:panelGrid columns="2">
+
+
+					<p:outputLabel value="Project Artifact" />
+					<p:selectOneMenu filter="true" filterMatchMode="contains"
+						value="#{release.selectedProj}">
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItems value="#{release.allProjectCoordinates}" />
+						<p:ajax listener="#{release.handleChange}" update="@parent"></p:ajax>
+					</p:selectOneMenu>
+
+					<p:outputLabel for="releaseName" value="Release name" />
+					<p:inputText id="releaseName" value="#{release.releaseName}" required="true">
+						<f:validateLength minimum="2" />
+					</p:inputText>
+
+					<p:outputLabel value="Additional artifacts"
+						rendered="#{release.showGrid}" id="additionalArtifacts" />
+					<p:selectManyCheckbox id="grid"
+						value="#{release.additionalArtifactsSelected}" layout="grid"
+						columns="3" rendered="#{release.showGrid}">
+						<f:selectItems value="#{release.additionalArtifacts}" />
+					</p:selectManyCheckbox>
+
+					<p:outputLabel value="Release date" />
+					<p:calendar value="#{release.date}" navigator="true"
+						autocomplete="true" />
+
+					<p:outputLabel value="Release lead" />
+					<p:inputText value="#{release.releaseLead}" />
+
+					<p:outputLabel value="Additional notes" />
+					<p:inputTextarea rows="5" cols="30" counter="counter"
+						maxlength="100" counterTemplate="{0} characters remaining."
+						autoResize="false" value="#{release.notes}" />
+					<p:spacer></p:spacer>
+					<h:outputText id="counter" />
+					<p:spacer></p:spacer>
+
+
+					<p:commandButton value="Save" action="#{release.save}"></p:commandButton>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+
+		<p:separator></p:separator>
+		<p:spacer height="10"></p:spacer>
+		<h:form id="results1">
+
+		</h:form>
+	</ui:define>
+</ui:composition>

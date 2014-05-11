@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html">
+
+	<h:head>
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>Pumpkin</title>
+		</f:facet>
+
+		<link type="text/css" rel="stylesheet"
+			href="#{request.contextPath}/css/default.css" />
+		<link type="text/css" rel="stylesheet"
+			href="#{request.contextPath}/css/syntaxhighlighter/syntaxhighlighter.css" />
+
+		<script language="javascript">
+			$(document).ready(
+					function() {
+						$(".ui-panelmenu-content").css("display", "block"); //shows the menuitems
+						$(".ui-panelmenu-header").addClass("ui-state-active"); //sets the submenu header to active state
+						$(".ui-icon-triangle-1-e").removeClass(
+								"ui-icon-triangle-1-e").addClass(
+								"ui-icon-triangle-1-s"); //sets the triangle icon to "expaned" version
+					});
+		</script>
+	</h:head>
+
+	<h:body>
+		<p:layout fullPage="true">
+			<p:layoutUnit position="north" size="105" resizable="false"
+				closable="false" collapsible="false">
+				<div class="ui-widget ui-widget-header" style="">
+					<div id="bg">
+						<p:graphicImage value="/images/logo.png" width="160" height="90" />
+					</div>
+				</div>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="south" size="20" resizable="true">
+				<center>Built by Sai</center>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="west" size="200" header="Links"
+				resizable="false">
+				<p:panelMenu style="width:260px">
+					<p:submenu label="Webservices">
+						<p:menuitem value="Services" url="/content/allWebservices.do"
+							icon="ui-icon-link" />
+						<p:menuitem value="Consumers" url="/content/allConsumers.do"
+							icon="ui-icon-link" />
+						<p:menuitem value="Interface XML Schemas" url="/content/allInterfaces.do"
+							icon="ui-icon-link" />
+					</p:submenu>
+					<p:separator />
+
+					<p:submenu label="Maven artifacts">
+						<p:menuitem value="Project artifacts"
+							url="/content/allProjects.do" icon="ui-icon-link" />
+						<p:menuitem value="UI artifacts"
+							url="/content/allOther.do?category=ui" icon="ui-icon-link" />	
+						<p:menuitem value="Utility artifacts"
+							url="/content/allOther.do?category=utility" icon="ui-icon-link" />	
+						<p:menuitem value="Configuration artifacts"
+							url="/content/allOther.do?category=configurtion" icon="ui-icon-link" />	
+						<p:menuitem value="Styles/Resources artifacts"
+							url="/content/allOther.do?category=resources" icon="ui-icon-link" />	
+						<p:menuitem value="Standalone artifacts"
+							url="/content/allOther.do?category=standalone" icon="ui-icon-link" />	
+						<p:menuitem value="All artifacts" url="/content/allOther.do"
+							icon="ui-icon-link" />
+					</p:submenu>
+
+					<p:submenu label="Release Notes">
+						<p:menuitem value="Create/Update" url="/content/createNotes.do"
+							icon="ui-icon-link" />
+						<p:menuitem value="View" url="/content/viewNotes.do"
+							icon="ui-icon-link" />
+					</p:submenu>
+
+					<p:submenu label="Miscellaneous">
+						<p:menuitem value="Diff project artifacts" url="/content/diff.do"
+							icon="ui-icon-link" />
+						<p:menuitem value="Artifact release timeline"
+							url="/content/timeline.do" icon="ui-icon-link" />
+					</p:submenu>
+				</p:panelMenu>
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+
+				<p:dialog modal="true" widgetVar="statusDialog"
+					header="Please wait.." draggable="false" closable="false">
+					<p:graphicImage value="/images/ajax-loader.gif" />
+				</p:dialog>
+				<ui:insert name="main"></ui:insert>
+			</p:layoutUnit>
+
+			<!-- <p:layoutUnit position="east" size="300" header="Dashboard"
+				resizable="true" collapsible="true" effect="slide">
+				<p:spacer width="200" height="20" />
+				<ui:insert name="right"></ui:insert>
+			</p:layoutUnit> -->
+
+		</p:layout>
+
+	</h:body>
+
+</f:view>
+
+<script language="javascript"
+	src="#{request.contextPath}/syntaxhighlighter/scripts/sh.js"></script>
+<script language="javascript">
+	dp.SyntaxHighlighter.ClipboardSwf = '#{request.contextPath}/syntaxhighlighter/scripts/clipboard.swf';
+	dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</html>
+
